@@ -11,16 +11,21 @@ import SessionFees from "@/components/SessionFees";
 
 export default function HomePage() {
   return (
-    <main  className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-    
-     <Hero/>
-
-     <About/>
-      <Service/>
-      <Faq/>
-      <SessionFees/>
-      <Contact/>
-      <Footer/>
+    <main className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+      <style>
+      {`
+        main::-webkit-scrollbar {
+        display: none;
+        }
+      `}
+      </style>
+      <Hero />
+      <About />
+      <Service />
+      <Faq />
+      <SessionFees />
+      <Contact />
+      <Footer />
     </main>
   );
 }
