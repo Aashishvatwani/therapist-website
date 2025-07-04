@@ -7,7 +7,7 @@ import { Menu } from 'lucide-react'; // Lucide React icon
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
+
   SheetHeader,
   SheetTitle,
   SheetTrigger,
