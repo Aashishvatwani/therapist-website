@@ -50,10 +50,19 @@ export default function ContactSection() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | { target: { id: string; value?: string; type: string; checked?: boolean } }
   ) => {
-    const { id, value, type, checked } = e.target;
+    const target = e.target;
+    const id = target.id;
+    const type = target.type;
+    let value: string | boolean = '';
+    if (type === 'checkbox') {
+      // For checkbox, safely access checked property
+      value = (target as HTMLInputElement).checked ?? false;
+    } else {
+      value = target.value ?? '';
+    }
     setFormData((prevData) => ({
       ...prevData,
-      [id]: type === 'checkbox' ? checked ?? false : value ?? '',
+      [id]: value,
     }));
     // Clear error for the field as user types
     if (errors[id as keyof FormErrors]) {
@@ -267,7 +276,15 @@ export default function ContactSection() {
                 <Checkbox
                   id="agreeToContact"
                   checked={formData.agreeToContact}
-                  onCheckedChange={(checked) => handleChange({ target: { id: 'agreeToContact', type: 'checkbox', checked } })}
+                  onCheckedChange={(checked) =>
+                    handleChange({
+                      target: {
+                        id: 'agreeToContact',
+                        type: 'checkbox',
+                        checked: checked === true,
+                      },
+                    })
+                  }
                   className={`border-gray-600 data-[state=checked]:bg-amber-500 data-[state=checked]:text-white ${errors.agreeToContact ? 'border-red-500' : ''}`}
                 />
                 <Label htmlFor="agreeToContact" className="text-gray-300 cursor-pointer">
